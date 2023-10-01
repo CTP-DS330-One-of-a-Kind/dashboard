@@ -1,15 +1,19 @@
 import streamlit as st
 import pandas as pd
 import seaborn as sns
+import geopandas as gpd
 
 
 def main():
     st.title("Streamlit App Template")
 
-    df = pd.read_csv("data")
+    df = pd.read_csv("data/MW.csv", encoding='cp1252')
+
+    df_state = pd.read_csv("data/state.csv", encoding="unicode_escape")
     
     # Add your content here
-    st.write("Welcome to your Streamlit app!")
+    st.write("THE DATA")
+    st.dataframe(df)
     
     # Example: Adding a button
     if st.button("Click me"):
