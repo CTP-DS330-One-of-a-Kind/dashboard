@@ -56,7 +56,7 @@ def main():
     ax.set_xlim(-126, -66) 
     ax.set_ylim(24, 50)
     
-    
+    # set scale for legend
     LEGEND_MIN = 5
     LEGEND_MAX = 20
 
@@ -72,7 +72,7 @@ def main():
     # Sort the DataFrame by 'state' for correct correlation
     filtered_df_state = filtered_df.sort_values(by='state')
 
-    
+    # set scale for bars    
     BAR_MIN = 0
     BAR_MAX = 20
 
@@ -80,7 +80,7 @@ def main():
     plt.title('Minimum Wage by State')
     plt.xlabel('Minimum Wage U$D')
     plt.ylabel('State')
-    plt.xlim(0, 18)
+    plt.xlim(BAR_MIN, BAR_MAX)
     plt.gca().invert_yaxis()
 
     st.pyplot(plt)
