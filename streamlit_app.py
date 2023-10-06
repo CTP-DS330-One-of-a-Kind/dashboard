@@ -1,7 +1,9 @@
 import streamlit as st
 import pandas as pd
 import geopandas as gpd
+import time
 from matplotlib import pyplot as plt
+
 
 def main():
 
@@ -20,15 +22,27 @@ def main():
 
     # Merge the DataFrames
     merged_df = pd.merge(df, df_state[['state', 'year', 'governor']], left_on=['state', 'year'], right_on=['state', 'year'])
+    selected_columns = ["year","state",	"state.minimum.wage", "governor", "effective.minimum.wage.2020.dollars"]
+    merged_df = merged_df[selected_columns]
 
     # Sidebar for filtering/sorting
     with st.sidebar: 
         # Filter data based on selected year
         st.subheader("Filter Data")
-        selected_year = st.slider("Select a year:", min_value=1980, max_value=2016, value=1980, step=1)
+        # Animate function
+        def play_animation():
+            while st.session_state["slider"] < 2016:
+                st.session_state["slider"] += 1
+                time.sleep(10)
+            
+        # Slider
+        selected_year = st.slider("Select a year:", min_value=1980, max_value=2016, value=1980, step=1, key="slider")
+        animate = st.button("Play",on_click=play_animation)
+            
+
 
     filtered_df = merged_df[merged_df['year'] == selected_year]
-    
+
     colors = filtered_df['governor'].apply(lambda x: 'blue' if x == 'D' else 'red')
 
     filtered_df_unmerged = df[df['year'] == selected_year]
